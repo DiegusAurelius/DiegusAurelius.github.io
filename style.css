@@ -1,11 +1,52 @@
 :root {
-  --color-dark: hsl(0, 0%, 0%);
-  --color-gray: hsl(0, 0%, 65%);
-  --color-light: hsl(0, 0%, 93%);
+  --color-dark: hsl(210, 20%, 10%);
+  --color-gray: hsl(210, 10%, 55%);
+  --color-light: hsl(210, 20%, 90%);
   --color-white: hsl(0, 0%, 100%);
-  --color-primary: hsl(200, 100%, 50%);
-  --color-secondary: hsl(0, 0%, 15%);
+  --color-black: hsl(0, 0%, 0%);
+  --color-primary: hsl(200, 90%, 50%);
+  --color-secondary: hsl(35, 85%, 50%);
+
+  --space-3xs: clamp(0.31rem, 0.31rem + 0vw, 0.31rem);
+  --space-2xs: clamp(0.56rem, 0.54rem + 0.11vw, 0.63rem);
+  --space-xs: clamp(0.88rem, 0.85rem + 0.11vw, 0.94rem);
+  --space-s: clamp(1.13rem, 1.08rem + 0.22vw, 1.25rem);
+  --space-m: clamp(1.69rem, 1.62rem + 0.33vw, 1.88rem);
+  --space-l: clamp(2.25rem, 2.16rem + 0.43vw, 2.5rem);
+  --space-xl: clamp(3.38rem, 3.24rem + 0.65vw, 3.75rem);
+
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Typography */
+  font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem);
+  --font-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --measure: 60ch;
+  /* Font size scale using a ratio close to 1.2 (minor third) */
+  --step--2: clamp(
+    0.7rem,
+    0.72rem + -0.03vw,
+    0.72rem
+  ); /* Small text, footnotes */
+  --step--1: clamp(0.84rem, 0.85rem + -0.02vw, 0.86rem); /* Secondary text */
+  --step-0: clamp(1rem, 1rem + 0vw, 1rem); /* Body text */
+  --step-1: clamp(
+    1.2rem,
+    1.18rem + 0.04vw,
+    1.22rem
+  ); /* Large body, small headings */
+  --step-2: clamp(1.44rem, 1.38rem + 0.1vw, 1.49rem); /* H3 */
+  --step-3: clamp(1.73rem, 1.62rem + 0.21vw, 1.83rem); /* H2 */
+  --step-4: clamp(2.07rem, 1.89rem + 0.37vw, 2.24rem); /* H1 */
+  --step-5: clamp(2.49rem, 2.19rem + 0.61vw, 2.73rem); /* Hero text */
+  /* Line heights (proportional for different text sizes) */
+  --leading-sm: 1.2; /* Headings */
+  --leading-base: 1.5; /* Body text */
+  --leading-lg: 1.7; /* Small text */
+
   --radius: 0.666em;
 }
 
@@ -15,6 +56,7 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  scroll-behavior: smooth;
 }
 
 *,
@@ -28,41 +70,25 @@ html {
   padding: 0;
   font: inherit;
   max-inline-size: var(--measure);
-  line-height: calc(1em + 0.6rem);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html,
-body,
-div,
-section,
-nav,
-header,
-ul,
-ol,
-main,
-footer {
-  max-inline-size: none;
 }
 
 body {
   height: 100%;
   max-width: clamp(300px, 90%, 1200px);
   padding: 1em;
+  font-size: var(--step-0);
+  line-height: var(--leading-base);
   color: var(--color-light);
   background: var(--color-dark);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-base);
 }
 
 p,
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -71,18 +97,125 @@ p {
   text-wrap: pretty;
 }
 
+:is(h1, h2, h3) {
+  font-weight: bold;
+  text-wrap: balance;
+  line-height: var(--leading-sm);
+}
+
+.small-print {
+  font-size: var(--step--2);
+  line-height: var(--leading-lg);
+}
+
+p,
+li,
+input,
+button {
+  font-size: var(--step-0);
+  line-height: var(--leading-base);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h1 {
+  font-size: var(--step-4);
+}
+
+.hero {
+  font-size: var(--step-5);
+  line-height: var(--leading-sm);
+}
+
+/* Base vertical rhythm */
+* + h1,
+* + h2,
+* + h3,
+* + h4,
+* + h5,
+* + h6 {
+  margin-block-start: var(--space-xl);
+}
+
+* + p {
+  margin-block-start: var(--space-s);
+}
+
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
+h3 {
+  margin-block-end: var(--space-xs);
 }
+
+/* Specific heading adjustments */
+h1 {
+  margin-block-end: var(--space-m);
+}
+
+h2 {
+  margin-block-end: var(--space-s);
+}
+
+/* Lists */
 
 ul {
   list-style: none;
+}
+
+ol,
+ul {
   list-style-position: inside;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+* + ul,
+* + ol {
+  margin-block-start: var(--space-s);
+}
+
+ul,
+ol {
+  margin-block-end: var(--space-s);
+}
+
+li + li {
+  margin-block-start: var(--space-3xs);
+}
+
+/* Larger spacing for sections */
+section + section {
+  margin-block-start: var(--space-xl);
+}
+
+/* Handle nested content */
+article * + * {
+  margin-block-start: var(--space-s);
+}
+
+/* Special cases */
+blockquote {
+  margin-block: var(--space-m);
+  padding-inline-start: var(--space-m);
+}
+
+pre,
+code {
+  margin-block: var(--space-s);
+}
+
+hr {
+  margin-block: var(--space-l);
 }
 
 input,
@@ -90,6 +223,7 @@ button,
 textarea,
 select {
   font: inherit;
+  border-radius: var(--radius);
 }
 
 button {
@@ -124,12 +258,14 @@ svg {
 }
 
 *:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
+  outline: 0.125em solid transparent;
+  outline-offset: 0.125em;
 }
 
 *:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 0.125em solid var(--color-primary);
+  outline-offset: 0.25em;
+  border-radius: var(--radius);
 }
 
 :target {
