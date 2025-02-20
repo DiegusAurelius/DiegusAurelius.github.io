@@ -4,7 +4,8 @@
   --color-light: hsl(210, 20%, 90%);
   --color-white: hsl(0, 0%, 100%);
   --color-black: hsl(0, 0%, 0%);
-  --color-link: hsl(200, 85%, 50%);
+  --color-link: hsl(208, 100%, 62%);
+  /* --color-link: hsl(200, 85%, 50%); */
   --color-primary: hsl(50, 85%, 50%);
 
   --space-3xs: clamp(0.31rem, 0.31rem + 0vw, 0.31rem);
@@ -247,6 +248,10 @@ button {
   padding-block: var(--space-2xs);
   padding-inline: var(--space-s);
   font-weight: 800;
+}
+
+button:hover {
+  opacity: 0.9;
 }
 
 a:not([class]) {
