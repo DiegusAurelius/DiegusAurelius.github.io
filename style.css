@@ -5,7 +5,6 @@
   --color-white: hsl(0, 0%, 100%);
   --color-black: hsl(0, 0%, 0%);
   --color-link: hsl(208, 100%, 62%);
-  /* --color-link: hsl(200, 85%, 50%); */
   --color-primary: hsl(50, 85%, 50%);
 
   --space-3xs: clamp(0.31rem, 0.31rem + 0vw, 0.31rem);
@@ -46,7 +45,7 @@
 }
 
 html {
-  height: 100%;
+  min-height: 100dvh;
   box-sizing: border-box;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
